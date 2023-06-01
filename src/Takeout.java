@@ -1,0 +1,2 @@
+public class Takeout {
+}
