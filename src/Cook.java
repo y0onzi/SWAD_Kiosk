@@ -1,31 +1,31 @@
 public class Cook {
     int selectionData; // 연결 필요
 
-    public void Cook(int selectionData) {
-        this.selectionData = selectionData;
-    }
-    public void makeKrabbyPatty(int KrabbyPatty) {
+    public static void makeKrabbyPatty(int KrabbyPatty) {
         Inventory.numOfKrabbyPatty-=KrabbyPatty;
     }
-    public void makeDrink(int BulgogiBurger) {
+    public static void makeBulgogiBurger(int BulgogiBurger) {
         Inventory.numOfBulgogiBurger-=BulgogiBurger;
     }
-    public void makeFrenchFries(int FrenchFries) {
+    public static void makeChickenBurger(int ChickenBurger) {
+        Inventory.numOfChickenBurger-=ChickenBurger;
+    }
+    public static void makeFrenchFries(int FrenchFries) {
         Inventory.numOfFrenchFries-=FrenchFries;
     }
-    public void makeCheeseStick(int CheeseStick) {
+    public static void makeCheeseStick(int CheeseStick) {
         Inventory.numOfCheeseStick-=CheeseStick;
     }
-    public void makeChickenNuggets(int ChickenNuggets) {
+    public static void makeChickenNuggets(int ChickenNuggets) {
         Inventory.numOfChickenNuggets-=ChickenNuggets;
     }
-    public void makeOrangejuice(int Orangejuice) {
+    public static void makeOrangejuice(int Orangejuice) {
         Inventory.amountOfOrangejuice-=Orangejuice;
     }
-    public void makeCocaCola(int CocaCola) {
+    public static void makeCocaCola(int CocaCola) {
         Inventory.amountOfCocaCola-=CocaCola;
     }
-    public void Sprite(int Sprite) {
+    public static void makeSprite(int Sprite) {
         Inventory.amountOfSprite-=Sprite;
     }
 }
