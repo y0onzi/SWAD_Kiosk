@@ -44,6 +44,65 @@ public class Controller {
         else System.out.println("존재하지 않는 쿠폰입니다.");
 
     }
+    
+    // 인벤토리 체크하고 요리까지 하는 클래스
+    // 메뉴 받아오는 거(String menu) 수정하는 게 좋을 듯... 카트 작성하시는 거 보고 맞추어 수정
+    private void checkInventory(String menu, int number){
+        if(menu=="KrabbyPatty" && inventory.inventoryStateofKrabbyPatty==true) {
+            Cook.makeKrabbyPatty(number);
+        }
+        else {
+            System.out.println("게살버거 주문 불가");
+        }
+        if(menu=="BulgogiBurger" && inventory.inventoryStateofBulgogiBurger==true) {
+            Cook.makeBulgogiBurger(number);
+        }
+        else {
+            System.out.println("불고기버거 주문 불가");
+        }
+        if(menu=="ChickenBurger" && inventory.inventoryStateofChickenBurger==true) {
+            Cook.makeChickenBurger(number);
+        }
+        else {
+            System.out.println("치킨버거 주문 불가");
+        }
+        if(menu=="FrenchFries" && inventory.inventoryStateofFrenchFries==true) {
+            Cook.makeFrenchFries(number);
+        }
+        else {
+            System.out.println("감자튀김 주문 불가");
+        }
+        if(menu=="CheeseStick" && inventory.inventoryStateofCheeseStick==true) {
+            Cook.makeCheeseStick(number);
+        }
+        else {
+            System.out.println("치즈스틱 주문 불가");
+        }
+        if(menu=="ChickenNuggets" && inventory.inventoryStateofChickenNuggets==true) {
+            Cook.makeChickenNuggets(number);
+        }
+        else {
+            System.out.println("치킨너겟 주문 불가");
+        }
+        if(menu=="Orangejuice" && inventory.inventoryStateofOrangejuice==true) {
+            Cook.makeOrangejuice(number);
+        }
+        else {
+            System.out.println("오렌지주스 주문 불가");
+        }
+        if(menu=="CocaCola" && inventory.inventoryStateofCocaCola==true) {
+            Cook.makeCocaCola(number);
+        }
+        else {
+            System.out.println("코카콜라 주문 불가");
+        }
+        if(menu=="Sprite" && inventory.inventoryStateofSprite==true) {
+            Cook.makeSprite(number);
+        }
+        else {
+            System.out.println("스프라이트 주문 불가");
+        }
+    }
 
 
 
