@@ -9,7 +9,7 @@ public class Receipt {
         this.totalPrice = totalPrice;
     }
 
-    public void printReceipt() {
+    public void printReceipt(List<String> items, double totalPrice) {
         System.out.println("========== 영수증 ==========");
         System.out.println("주문 상품:");
         for (String item : items) {
