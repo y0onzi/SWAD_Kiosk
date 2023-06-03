@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Collections;
+import java.util.*;
 
 public class Controller {
 
@@ -19,28 +16,68 @@ public class Controller {
     Scanner sc = new Scanner(System.in);
     double price=0;
     List<String> selectionMenu = new ArrayList<>();
+    //주문메뉴 갯수 (키:메뉴 값:갯수)
+    Map<String, Integer> numOfOrderMenu = new HashMap<>();
 
     public void selectMenu() {
-            while (true) {
-                System.out.println("주문하실 메뉴를 선택해주세요: ");
-                int menuNumber = sc.nextInt();
-                switch (menuNumber) {
-                    case 1 : cart.addItem("KrabbyPatty", selectionMenu); break;
-                    case 2 : cart.addItem("BulgogiBurger", selectionMenu); break;
-                    case 3 : cart.addItem("ChickenBurger", selectionMenu); break;
-                    case 4 : cart.addItem("FrenchFries", selectionMenu); break;
-                    case 5 : cart.addItem("CheeseStick", selectionMenu); break;
-                    case 6 : cart.addItem("ChickenNuggets", selectionMenu); break;
-                    case 7 : cart.addItem("Orangejuice", selectionMenu); break;
-                    case 8 : cart.addItem("CocaCola", selectionMenu); break;
-                    case 9 : cart.addItem("Sprite", selectionMenu); break;
-                    default: break;
-                }
-                //메뉴선택 종료
-                if (menuNumber == 0) break;
+        while (true) {
+            System.out.println("주문하실 메뉴를 선택해주세요: ");
+            int menuNumber = sc.nextInt();
+            switch (menuNumber) {
+                case 1 : cart.addItem("KrabbyPatty", selectionMenu); break;
+                case 2 : cart.addItem("BulgogiBurger", selectionMenu); break;
+                case 3 : cart.addItem("ChickenBurger", selectionMenu); break;
+                case 4 : cart.addItem("FrenchFries", selectionMenu); break;
+                case 5 : cart.addItem("CheeseStick", selectionMenu); break;
+                case 6 : cart.addItem("ChickenNuggets", selectionMenu); break;
+                case 7 : cart.addItem("Orangejuice", selectionMenu); break;
+                case 8 : cart.addItem("CocaCola", selectionMenu); break;
+                case 9 : cart.addItem("Sprite", selectionMenu); break;
+                default: break;
             }
+            //메뉴선택 종료
+            if (menuNumber == 0) break;
+        }
+    }
 
-//            checkInventory(selectionMenu.get(1));
+    public void deleteMenu() {
+        System.out.println("주문메뉴를 변경하시겠습니까?(네:0 / 아니요:1): ");
+        if (sc.nextInt() == 1) return;
+
+        while (true) {
+            System.out.println("삭제할 메뉴를 선택해주세요: ");
+            int menuNumber = sc.nextInt();
+            switch (menuNumber) {
+                case 1 : cart.removeItem("KrabbyPatty", selectionMenu); break;
+                case 2 : cart.removeItem("BulgogiBurger", selectionMenu); break;
+                case 3 : cart.removeItem("ChickenBurger", selectionMenu); break;
+                case 4 : cart.removeItem("FrenchFries", selectionMenu); break;
+                case 5 : cart.removeItem("CheeseStick", selectionMenu); break;
+                case 6 : cart.removeItem("ChickenNuggets", selectionMenu); break;
+                case 7 : cart.removeItem("Orangejuice", selectionMenu); break;
+                case 8 : cart.removeItem("CocaCola", selectionMenu); break;
+                case 9 : cart.removeItem("Sprite", selectionMenu); break;
+                default: break;
+            }
+            if (menuNumber == 0) break;
+        }
+        System.out.println("주문변경 완료");
+    }
+
+    //최종 주문시 인벤토리 확인
+    public void finalOrder() {
+        cart.numOfOrder(selectionMenu, numOfOrderMenu);
+        for (Map.Entry<String, Integer> pair : numOfOrderMenu.entrySet()) {
+            checkInventory(pair.getKey(), pair.getValue());
+        }
+        // 주문불가인 경우 ?
+    }
+
+    // 포장선택
+    public void Takeout () {
+        if (takeout.checkTakeout() == 0)
+            System.out.println("포장하기 선택되었습니다");
+        else System.out.println("먹고가기 선택되었습니다");
     }
 
 
@@ -91,7 +128,6 @@ public class Controller {
     public void setTotalPrice(double price){
         this.price = price;
     }
-
 
 
     // 인벤토리 체크하고 요리까지 하는 클래스
