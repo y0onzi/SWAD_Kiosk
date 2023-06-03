@@ -1,4 +1,5 @@
 public class CardReader {
+    int orderNumber=1;
     String cardNumber;
     int password;
     boolean cardValidation = true;
@@ -9,8 +10,15 @@ public class CardReader {
 //    글자수만 맞으면 결제성공 true 리턴
 //    카드정보 읽어오는 리더기에서 + 원래 credit card의 useCreditCard
 
-
     public CardReader() {
+    }
+
+    public int getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(int orderNumber) {
+        this.orderNumber = orderNumber+1;
     }
 
     public void readCreditCard(String CardNumber, int password){
@@ -29,12 +37,24 @@ public class CardReader {
         System.out.println(pwd);
         if(CardNumber.length()!=16 || pwd!=4 )
             cardValidation =false;
-        if(cardValidation) useCreditCard();
+        useCreditCard(cardValidation);
     }
 
-    private void useCreditCard(){
-        //결제완료+주문번호? 팝업창 ?? or 콘솔 출력
-        System.out.println("결제완료!");
+    private void useCreditCard(boolean valid){
+        if (!valid) {
+            System.out.println("결제실패");
+            //처음화면으로 돌아가는 코드 작성? : Screen 호출 ?
+        }
+        else {
+            //카드정보DB 없으니 유효성 검사 통과시 결제 성공
+            // 주문번호 출력은 ??
+            System.out.println("결제완료!");
+            int orderNum = getOrderNumber();
+            System.out.println("주문번호는 : " + orderNum);
+            setOrderNumber(orderNum);
+            //처음화면으로 돌아가는 코드 작성? : Screen 호출 ?
+        }
+
     }
 
 

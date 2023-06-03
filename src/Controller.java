@@ -9,17 +9,35 @@ public class Controller {
     Cart cart;
     Inventory inventory;
     Takeout takeout;
-    //BarcodeReader barcodeReader;
+    BarcodeReader barcodeReader;
     CardReader cardReader;
     Receipt receipt;
     Printer printer;
     Cook cook;
 
     Scanner sc = new Scanner(System.in);
+    double price=0;
+    List<String> selectionMenu = new ArrayList<>();
 
-    private void ProcessPayment(){
+    public void processPayment(){
+        //1. 먼저 쿠폰 사용 여부 확인 + 사용
+        if(checkCouponUse()==0){
+            System.out.println("쿠폰코드를 입력하세요: ");
+            String couponCode = sc.next();
+            //쿠폰 코드 버튼말고 키보드로 문자열 형태로 직접 입력 받음
+            barcodeReader.readCoupon(couponCode);
+        }
+        //2.  카드 사용
+        System.out.println("공백없이 카드번호를 입력해주세요: ");
+        String cardNum = sc.next();
+        System.out.println("카드 비밀번호를 입력해주세요: ");
+        int cardPwd = sc.nextInt();
+        cardReader.readCreditCard(cardNum, cardPwd);
 
-        if(checkCouponUse()==0) useCoupon();
+        //영수증 출력
+        receipt.printReceipt();
+
+
     }
 
     private int checkCouponUse(){
@@ -28,27 +46,26 @@ public class Controller {
         return useCheck;
     }
 
-
-    private void useCoupon(){
-        String couponCode = sc.next();
-        //버튼말고 키보드로 직접 입력 받기
-        if(couponCode.equals("2023drinkfree")){
-            System.out.println("음료수 무료 제공 쿠폰 적용완료!");
-            //controller에서 가격조절필요
-            //음료수 선택안했으면?
-        }
-        else if (couponCode.equals("2023discount50")){
-            System.out.println("주문 가격에서 50퍼센트 할인 적용완료!");
-            //controller에서 가격조절필요
-        }
-        else System.out.println("존재하지 않는 쿠폰입니다.");
-
+    //쿠폰 적용시 가격 조절(할인) -> barcodeReader에서 호출
+    public double applyCouponAndGetPrice() {
+        double originalPrice = getTotalPrice();
+        double discount = 0.5;
+        double discountedPrice = originalPrice * (1 - discount);
+        setTotalPrice(discountedPrice);
+        return discountedPrice;
     }
-    
-    public void getTotalPrice(){
+
+
+
+    public double getTotalPrice(){
         // System.out.println(price);
         // 카트 작성하시고 TotalPrice 연결시켜주세요
+        return price;
     }
+    public void setTotalPrice(double price){
+        this.price = price;
+    }
+
 
 
     // 인벤토리 체크하고 요리까지 하는 클래스
