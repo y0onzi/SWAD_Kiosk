@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Collections;
 
 public class Controller {
 
@@ -18,6 +19,31 @@ public class Controller {
     Scanner sc = new Scanner(System.in);
     double price=0;
     List<String> selectionMenu = new ArrayList<>();
+
+    public void selectMenu() {
+            while (true) {
+                System.out.println("주문하실 메뉴를 선택해주세요: ");
+                int menuNumber = sc.nextInt();
+                switch (menuNumber) {
+                    case 1 : cart.addItem("KrabbyPatty", selectionMenu); break;
+                    case 2 : cart.addItem("BulgogiBurger", selectionMenu); break;
+                    case 3 : cart.addItem("ChickenBurger", selectionMenu); break;
+                    case 4 : cart.addItem("FrenchFries", selectionMenu); break;
+                    case 5 : cart.addItem("CheeseStick", selectionMenu); break;
+                    case 6 : cart.addItem("ChickenNuggets", selectionMenu); break;
+                    case 7 : cart.addItem("Orangejuice", selectionMenu); break;
+                    case 8 : cart.addItem("CocaCola", selectionMenu); break;
+                    case 9 : cart.addItem("Sprite", selectionMenu); break;
+                    default: break;
+                }
+                //메뉴선택 종료
+                if (menuNumber == 0) break;
+            }
+
+//            checkInventory(selectionMenu.get(1));
+    }
+
+
 
     public void processPayment(){
         //1. 먼저 쿠폰 사용 여부 확인 + 사용
