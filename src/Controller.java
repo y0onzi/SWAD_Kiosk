@@ -121,9 +121,9 @@ public class Controller {
 
 
     public double getTotalPrice(){
-        // System.out.println(price);
+         System.out.printf("총 주문 가격: %f", cart.calculateTotalPrice(selectionMenu));
         // 카트 작성하시고 TotalPrice 연결시켜주세요
-        return price;
+        return cart.calculateTotalPrice(selectionMenu);
     }
     public void setTotalPrice(double price){
         this.price = price;

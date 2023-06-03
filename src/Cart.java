@@ -22,8 +22,8 @@ public class Cart {
         }
     }
 
-    public int calculateTotalPrice(List<String> menuItem) {
-        int price = 0;
+    public double calculateTotalPrice(List<String> menuItem) {
+        double price = 0;
         for (String menu: menuItem) {
 //            price += getPrice(menu);
         }
