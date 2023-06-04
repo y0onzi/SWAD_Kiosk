@@ -1,31 +1,24 @@
-public class Cook {
-    int selectionData; // 연결 필요
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-    public static void makeKrabbyPatty(int KrabbyPatty) {
-        Inventory.numOfKrabbyPatty-=KrabbyPatty;
+public class Cook {
+
+    public Cook(Inventory[] inventories,Cart cart){
+
+
+        Timer timer = new Timer(3000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ServeFoods();
+            }
+        });
+        timer.setRepeats(false); // 한 번만 실행하도록 설정
+        timer.start();
+
     }
-    public static void makeBulgogiBurger(int BulgogiBurger) {
-        Inventory.numOfBulgogiBurger-=BulgogiBurger;
-    }
-    public static void makeChickenBurger(int ChickenBurger) {
-        Inventory.numOfChickenBurger-=ChickenBurger;
-    }
-    public static void makeFrenchFries(int FrenchFries) {
-        Inventory.numOfFrenchFries-=FrenchFries;
-    }
-    public static void makeCheeseStick(int CheeseStick) {
-        Inventory.numOfCheeseStick-=CheeseStick;
-    }
-    public static void makeChickenNuggets(int ChickenNuggets) {
-        Inventory.numOfChickenNuggets-=ChickenNuggets;
-    }
-    public static void makeOrangejuice(int Orangejuice) {
-        Inventory.amountOfOrangejuice-=Orangejuice;
-    }
-    public static void makeCocaCola(int CocaCola) {
-        Inventory.amountOfCocaCola-=CocaCola;
-    }
-    public static void makeSprite(int Sprite) {
-        Inventory.amountOfSprite-=Sprite;
+
+    private void ServeFoods() {
+        JOptionPane.showMessageDialog(null, "직원: 맛있게 드세요~");
     }
 }

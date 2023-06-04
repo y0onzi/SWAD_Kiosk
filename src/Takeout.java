@@ -1,15 +1,15 @@
 public class Takeout {
-    private int isTakeout;
+    private boolean isTakeout;
 
-    public Takeout() {
-        isTakeout = 1;
+    //생성자
+    public Takeout(boolean isTakeout) {
+        this.isTakeout = isTakeout; //(트루일경우 포장)
+
     }
 
-    public void setTakeout(int takeout) {
-        isTakeout = takeout;
-    }
 
-    public int isTakeout() {
+    public boolean getTakeout() {
         return isTakeout;
     }
+
 }

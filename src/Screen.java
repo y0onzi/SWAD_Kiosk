@@ -7,373 +7,51 @@ import java.util.Arrays;
 public class Screen extends JFrame {
     //    JFrame frame = this;
     Container contentPane;
-    private JPanel CartPanel;
-    private JLabel[] CartList;
+    Controller controller = new Controller();
 
+
+    //메뉴 객체 생성(어디로 옮겨야하지..)
+    Burger burger1 = new Burger("게살버거", 5000, 552, "바다향이 나는 게살과 치즈의 조합을 살린 버거메뉴");
+    Burger burger2 = new Burger("불고기버거", 4700, 476, "소스의 강렬한 맛이 일품인 오리지날 버거메뉴");
+    Burger burger3 = new Burger("치킨버거", 3900, 334, "가게의 대표 메뉴로 야채의 맛을 살린 신선한 버거메뉴");
+    Burger[] burgers = {burger1, burger2, burger3};
+
+    Drink drink1 = new Drink("오렌지주스", 2000, 84, 175);
+    Drink drink2 = new Drink("콜라", 3000, 143, 310);
+    Drink drink3 = new Drink("아메리카노", 1500, 9, 250);
+    Drink[] drinks = {drink1, drink2, drink3};
+
+
+    Side side1 = new Side("감자튀김", 2800, 229, "새콤달콤한 케찹과 함께 먹으면 더 맛있는 감자튀김");
+    Side side2 = new Side("치즈스틱", 1500, 143, "쭈욱 늘어나는 치즈에 행복을 더한 치즈스틱");
+    Side side3 = new Side("치킨너겟", 3000, 171, "공룡모양의 귀여운 치킨너겟 4조각");
+    Side[] sides = {side1, side2, side3};
+    Inventory inventoryOfBurger1 = new Inventory(burger1,10);
+    Inventory inventoryOfBurger2 = new Inventory(burger2,10);
+    Inventory inventoryOfBurger3 = new Inventory(burger3,10);
+    Inventory inventoryOfDrink1 = new Inventory(drink1,10);
+    Inventory inventoryOfDrink2 = new Inventory(drink2,10);
+    Inventory inventoryOfDrink3 = new Inventory(drink3,10);
+    Inventory inventoryOfSide1 = new Inventory(side1,10);
+    Inventory inventoryOfSide2 = new Inventory(side2,10);
+    Inventory inventoryOfSide3 = new Inventory(side3,10);
+
+    Inventory[] inventories= {inventoryOfBurger1,inventoryOfBurger2,inventoryOfBurger3,
+            inventoryOfDrink1,inventoryOfDrink2,inventoryOfDrink3,
+            inventoryOfSide1,inventoryOfSide2,inventoryOfSide3};
 
     public Screen() {
-
-
-        // JFrame 설정
         contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
-        this.setTitle("패스트푸드점 키오스크");
+        this.setTitle("메인화면");
         setSize(850, 620);
 
-        //전체 메뉴 레이아웃
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        mainPanel.setBackground(new Color(190, 220, 240));
-        contentPane.add(mainPanel, BorderLayout.CENTER);
-
-
-        //전체메뉴타이틀
-        mainPanel.add(Box.createRigidArea(new Dimension(0, 5))); //컴포넌트사이간격추가
-        JLabel MenuTitle = new JLabel("[WholeMenu]");
-        MenuTitle.setFont(new Font("돋움", Font.BOLD, 30));
-        MenuTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-        mainPanel.add(MenuTitle);
-
-
-        //버거메뉴타이틀
-        mainPanel.add(Box.createRigidArea(new Dimension(0, 10))); //컴포넌트사이간격추가
-        JLabel BurgerTitle = new JLabel("-Burger Menu-");
-        BurgerTitle.setFont(new Font("돋움", Font.ITALIC, 15));
-        BurgerTitle.setForeground(Color.GRAY);
-        BurgerTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-        mainPanel.add(BurgerTitle);
-
-        //버거메뉴레이아웃(전체메뉴에 포함)
-        JPanel BurgerMenuPanel = new JPanel();
-        BurgerMenuPanel.setLayout(new GridLayout(0, 3, 10, 10));
-        BurgerMenuPanel.setPreferredSize(new Dimension(500, 160));
-        BurgerMenuPanel.setBackground(new Color(190, 220, 240));
-
-
-        String[][] ExampleFoodInfo1 = new String[3][3];
-        ExampleFoodInfo1[0][0] = "게살버거";
-        ExampleFoodInfo1[0][1] = "4000";
-        ExampleFoodInfo1[0][2] = "500";
-
-        ExampleFoodInfo1[1][0] = "불고기버거";
-        ExampleFoodInfo1[1][1] = "3000";
-        ExampleFoodInfo1[1][2] = "400";
-
-        ExampleFoodInfo1[2][0] = "치킨버거";
-        ExampleFoodInfo1[2][1] = "6000";
-        ExampleFoodInfo1[2][2] = "300";
-
-
-        String[][] ExampleFoodInfo2 = new String[3][3];
-        ExampleFoodInfo2[0][0] = "감자튀김";
-        ExampleFoodInfo2[0][1] = "4000";
-        ExampleFoodInfo2[0][2] = "500";
-
-        ExampleFoodInfo2[1][0] = "치즈스틱";
-        ExampleFoodInfo2[1][1] = "3000";
-        ExampleFoodInfo2[1][2] = "400";
-
-        ExampleFoodInfo2[2][0] = "치킨너겟";
-        ExampleFoodInfo2[2][1] = "6000";
-        ExampleFoodInfo2[2][2] = "300";
-
-        String[][] ExampleFoodInfo3 = new String[3][3];
-        ExampleFoodInfo3[0][0] = "오렌지주스";
-        ExampleFoodInfo3[0][1] = "4000";
-        ExampleFoodInfo3[0][2] = "500";
-
-        ExampleFoodInfo3[1][0] = "코카콜라";
-        ExampleFoodInfo3[1][1] = "3000";
-        ExampleFoodInfo3[1][2] = "400";
-
-        ExampleFoodInfo3[2][0] = "스프라이트";
-        ExampleFoodInfo3[2][1] = "2000";
-        ExampleFoodInfo3[2][2] = "0";
-
-
-        JButton[] BurgerBtn = new JButton[3];//나중에 삭제
-
-        for (int i = 0; i < 3; i++) {
-            BurgerBtn[i] = new JButton("<html>" + ExampleFoodInfo1[i][0] + "<br>(￦" + ExampleFoodInfo1[i][1] + ")</html>");
-            BurgerBtn[i].setFont(new Font("돋움", Font.BOLD, 14));
-            BurgerMenuPanel.add(BurgerBtn[i]);
-        }
-
-
-        mainPanel.add(BurgerMenuPanel);
-
-        //사이드메뉴타이틀
-        mainPanel.add(Box.createRigidArea(new Dimension(0, 15))); //컴포넌트사이간격추가
-        JLabel SideTitle = new JLabel("-Side Menu-");
-        SideTitle.setFont(new Font("돋움", Font.ITALIC, 15));
-        SideTitle.setForeground(Color.GRAY);
-        SideTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-        mainPanel.add(SideTitle);
-
-        //사이드메뉴레이아웃(전체메뉴에 포함)
-        JPanel SideMenuPanel = new JPanel();
-        SideMenuPanel.setLayout(new GridLayout(0, 3, 10, 10));
-        SideMenuPanel.setPreferredSize(new Dimension(500, 160));
-        SideMenuPanel.setBackground(new Color(190, 220, 240));
-
-        JButton[] SideBtn = new JButton[3];//나중에 삭제
-
-        for (int i = 0; i < 3; i++) {
-            SideBtn[i] = new JButton("<html>" + ExampleFoodInfo2[i][0] + "<br>(￦" + ExampleFoodInfo2[i][1] + ")</html>");
-            SideBtn[i].setFont(new Font("돋움", Font.BOLD, 14));
-            SideMenuPanel.add(SideBtn[i]);
-        }
-
-
-        mainPanel.add(SideMenuPanel);
-
-
-        //드링크메뉴타이틀
-        mainPanel.add(Box.createRigidArea(new Dimension(0, 15))); //컴포넌트사이간격추가
-        JLabel DrinkTitle = new JLabel("-Drink Menu-");
-        DrinkTitle.setFont(new Font("돋움", Font.ITALIC, 15));
-        DrinkTitle.setForeground(Color.GRAY);
-        DrinkTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-        mainPanel.add(DrinkTitle);
-
-        //드링크메뉴레이아웃(전체메뉴에 포함)
-        JPanel DrinkMenuPanel = new JPanel();
-        DrinkMenuPanel.setLayout(new GridLayout(0, 3, 10, 10));
-        DrinkMenuPanel.setPreferredSize(new Dimension(500, 160));
-        DrinkMenuPanel.setBackground(new Color(190, 220, 240));
-
-        JButton[] DrinkBtn = new JButton[3];//나중에 삭제
-
-        for (int i = 0; i < 3; i++) {
-            DrinkBtn[i] = new JButton("<html>" + ExampleFoodInfo3[i][0] + "<br>(￦" + ExampleFoodInfo3[i][1] + ")</html>");
-            DrinkBtn[i].setFont(new Font("돋움", Font.BOLD, 14));
-            DrinkMenuPanel.add(DrinkBtn[i]);
-        }
-
-
-        mainPanel.add(DrinkMenuPanel);
-
-        mainPanel.add(Box.createRigidArea(new Dimension(0, 20))); //컴포넌트사이간격추가
-        //메뉴정보 타이틀
-        JLabel MenuInfoTitle = new JLabel("*Select Menu Information*");
-        MenuInfoTitle.setFont(new Font("돋움", Font.BOLD, 15));
-        MenuInfoTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-        MenuInfoTitle.setForeground(new Color(111, 111, 162));
-        mainPanel.add(MenuInfoTitle);
-        mainPanel.add(Box.createRigidArea(new Dimension(0, 5))); //컴포넌트사이간격추가
-
-        //선택메뉴 정보 (최근선택메뉴)
-        JPanel SelectMenuInfoPanel = new JPanel();
-        SelectMenuInfoPanel.setLayout(new GridLayout(3, 0, 5, 5));
-        SelectMenuInfoPanel.setPreferredSize(new Dimension(350, 80));
-
-
-        JLabel[] MenuInfo = new JLabel[3];
-
-        MenuInfo[0] = new JLabel(" 메뉴명: " + " ");
-        MenuInfo[1] = new JLabel(" 가격: " + " ");
-        MenuInfo[2] = new JLabel(" 칼로리: " + " ");
-
-        for (int i = 0; i < 3; i++) {
-            MenuInfo[i].setFont(new Font("돋움", Font.ITALIC, 10));
-            MenuInfo[i].setForeground(Color.GRAY);
-            SelectMenuInfoPanel.add(MenuInfo[i]);
-        }
-        mainPanel.add(SelectMenuInfoPanel);
-
-        mainPanel.add(Box.createRigidArea(new Dimension(0, 10))); //컴포넌트사이간격추가
-
-
-        //서브패널레이아웃
-        JPanel SubPanel = new JPanel();
-        SubPanel.setLayout(new BoxLayout(SubPanel, BoxLayout.Y_AXIS));
-        SubPanel.setBackground(new Color(255, 250, 200));
-        SubPanel.setPreferredSize(new Dimension(350, 620));
-        contentPane.add(SubPanel, BorderLayout.EAST);
-        //카트타이틀
-
-        SubPanel.add(Box.createRigidArea(new Dimension(0, 10))); //컴포넌트사이간격추가
-
-        JLabel CartTitle = new JLabel("[Cart]");
-        CartTitle.setFont(new Font("돋움", Font.BOLD, 30));
-        CartTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-        SubPanel.add(CartTitle);
-
-        SubPanel.add(Box.createRigidArea(new Dimension(0, 5))); //컴포넌트사이간격추가
-
-        //카트패널
-        initializeCartPanel();
-        SubPanel.add(CartPanel);
-
-
-        SubPanel.add(Box.createRigidArea(new Dimension(0, 10))); //컴포넌트사이간격추가
-
-        Integer[] totalPrice = new Integer[1];
-        totalPrice[0]=0;
-
-        JLabel total = new JLabel("=Total: " + totalPrice[0]);
-        total.setFont(new Font("돋움", Font.BOLD, 15));
-        total.setAlignmentX(Component.CENTER_ALIGNMENT);
-        SubPanel.add(total);
-
-        SubPanel.add(Box.createRigidArea(new Dimension(0, 10))); //컴포넌트사이간격추가
-
-        //결제버튼패널
-        JPanel PayPanel = new JPanel();
-        PayPanel.setLayout(new GridLayout(0, 2, 5, 5));
-        PayPanel.setBackground(new Color(255, 250, 200));
-
-
-        JButton PayBtn1 = new JButton("먹고가기");
-        PayBtn1.setFont(new Font("돋움", Font.BOLD, 14));
-        PayPanel.add(PayBtn1);
-
-        JButton PayBtn2 = new JButton("포장");
-        PayBtn2.setFont(new Font("돋움", Font.BOLD, 14));
-        PayPanel.add(PayBtn2);
-
-        SubPanel.add(PayPanel);
-
-        SubPanel.add(Box.createRigidArea(new Dimension(0, 5))); //컴포넌트사이간격추가
-
-        String[] SelectMenu = new String[9];
-        Integer[] SelectQuantity = new Integer[9];
-        Integer[] SelectTotalPrice = new Integer[9];
-
-        Arrays.fill(SelectQuantity, 0);
-        Arrays.fill(SelectTotalPrice, 0);
-
-        //버튼 동작 추가!
-        for (int i = 0; i < 3; i++) {
-            final int index = i;
-            BurgerBtn[i].addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    MenuInfo[0].setText(" 메뉴명: " + ExampleFoodInfo1[index][0]);
-                    MenuInfo[1].setText(" 가격: ￦" + ExampleFoodInfo1[index][1]);
-                    MenuInfo[2].setText(" 칼로리: " + ExampleFoodInfo1[index][2]);
-
-                    for (int j = 0; j < 9; j++) {
-                        if (ExampleFoodInfo1[index][0] == SelectMenu[j]) {
-                            SelectQuantity[j] += 1;
-                            SelectTotalPrice[j] += Integer.parseInt(ExampleFoodInfo1[index][1]);
-                            totalPrice[0]+=Integer.parseInt(ExampleFoodInfo1[index][1]);
-                            total.setText("=Total: " + totalPrice[0]);
-                            CartList[j].setText(SelectMenu[j] + "     개수: " + SelectQuantity[j] + "      총 ￦" + (SelectTotalPrice[j]));
-                            return;
-                        }
-                    }
-
-                    for (int k = 0; k < 9; k++) {
-                        if (CartList[k].getText().isEmpty()) {
-                            SelectMenu[k] = ExampleFoodInfo1[index][0];
-                            SelectQuantity[k] = 1;
-                            SelectTotalPrice[k] = Integer.parseInt(ExampleFoodInfo1[index][1]);
-                            totalPrice[0]+=Integer.parseInt(ExampleFoodInfo1[index][1]);
-                            total.setText("=Total: " + totalPrice[0]);
-                            CartList[k].setText(SelectMenu[k] + "     개수: " + SelectQuantity[k] + "      총 ￦" + (SelectTotalPrice[k]));
-                            return;
-                        }
-                    }
-                    CartPanel.revalidate();
-                    CartPanel.repaint();
-                }
-            });
-
-
-            SideBtn[i].addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    MenuInfo[0].setText(" 메뉴명: " + ExampleFoodInfo2[index][0]);
-                    MenuInfo[1].setText(" 가격: ￦" + ExampleFoodInfo2[index][1]);
-                    MenuInfo[2].setText(" 칼로리: " + ExampleFoodInfo2[index][2]);
-
-                    for (int j = 0; j < 9; j++) {
-                        if (ExampleFoodInfo2[index][0] == SelectMenu[j]) {
-                            SelectQuantity[j] += 1;
-                            SelectTotalPrice[j] += Integer.parseInt(ExampleFoodInfo2[index][1]);
-                            totalPrice[0]+=Integer.parseInt(ExampleFoodInfo2[index][1]);
-                            total.setText("=Total: " + totalPrice[0]);
-                            CartList[j].setText(SelectMenu[j] + "     개수: " + SelectQuantity[j] + "      총 ￦" + (SelectTotalPrice[j]));
-                            return;
-                        }
-                    }
-
-                    for (int k = 0; k < 9; k++) {
-                        if (CartList[k].getText().isEmpty()) {
-                            SelectMenu[k] = ExampleFoodInfo2[index][0];
-                            SelectQuantity[k] = 1;
-                            SelectTotalPrice[k] = Integer.parseInt(ExampleFoodInfo2[index][1]);
-                            totalPrice[0]+=Integer.parseInt(ExampleFoodInfo2[index][1]);
-                            total.setText("=Total: " + totalPrice[0]);
-                            CartList[k].setText(SelectMenu[k] + "     개수: " + SelectQuantity[k] + "      총 ￦" + (SelectTotalPrice[k]));
-                            return;
-                        }
-                    }
-                    CartPanel.revalidate();
-                    CartPanel.repaint();
-                }
-            });
-
-
-            DrinkBtn[i].
-
-                    addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            MenuInfo[0].setText(" 메뉴명: " + ExampleFoodInfo3[index][0]);
-                            MenuInfo[1].setText(" 가격: ￦" + ExampleFoodInfo3[index][1]);
-                            MenuInfo[2].setText(" 칼로리: " + ExampleFoodInfo3[index][2]);
-
-                            for (int j = 0; j < 9; j++) {
-                                if (ExampleFoodInfo3[index][0] == SelectMenu[j]) {
-                                    SelectQuantity[j] += 1;
-                                    SelectTotalPrice[j] += Integer.parseInt(ExampleFoodInfo3[index][1]);
-                                    totalPrice[0]+=Integer.parseInt(ExampleFoodInfo3[index][1]);
-                                    total.setText("=Total: " + totalPrice[0]);
-                                    CartList[j].setText(SelectMenu[j] + "     개수: " + SelectQuantity[j] + "      총 ￦" + (SelectTotalPrice[j]));
-                                    return;
-                                }
-                            }
-
-                            for (int k = 0; k < 9; k++) {
-                                if (CartList[k].getText().isEmpty()) {
-                                    SelectMenu[k] = ExampleFoodInfo3[index][0];
-                                    SelectQuantity[k] = 1;
-                                    SelectTotalPrice[k] = Integer.parseInt(ExampleFoodInfo3[index][1]);
-                                    totalPrice[0]+=Integer.parseInt(ExampleFoodInfo3[index][1]);
-                                    total.setText("=Total: " + totalPrice[0]);
-                                    CartList[k].setText(SelectMenu[k] + "     개수: " + SelectQuantity[k] + "      총 ￦" + (SelectTotalPrice[k]));
-                                    return;
-                                }
-                            }
-                            CartPanel.revalidate();
-                            CartPanel.repaint();
-                        }
-                    });
-
-        }
-
-
-    }
-    
-
-    private void initializeCartPanel() {
-        CartPanel = new JPanel();
-        CartPanel.setLayout(new GridLayout(9, 0, 10, 10));
-        CartPanel.setPreferredSize(new Dimension(350, 440));
-
-        CartList = new JLabel[9];
-        for (int i = 0; i < 9; i++) {
-            CartList[i] = new JLabel("");
-            CartList[i].setForeground(Color.GRAY);
-            CartPanel.add(CartList[i]);
-        }
     }
 
     public static void main(String[] args) {
-        Screen frame = new Screen();
+        Screen frame = new OrderScreen();
         frame.setVisible(true);
+
     }
 }
 
