@@ -74,7 +74,7 @@ public class Controller {
     }
 
     // 포장선택
-    public void Takeout () {
+    public void checkTakeout () {
         if (takeout.checkTakeout() == 0)
             System.out.println("포장하기 선택되었습니다");
         else System.out.println("먹고가기 선택되었습니다");
